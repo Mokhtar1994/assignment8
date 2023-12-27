@@ -69,7 +69,10 @@ export const deleteTask = asyncHandler(async (req, res, next) => {
   console.log(user);
   let task = await Task.findById({ _id: taskId });
   console.log(task);
+  // check if task is exist
   if (!task) return next(new Error("Task does not exists", { cause: 404 }));
+
+  // check the ownership of the task
   if (task.userId.toString() != user._id.toString())
     return next(
       new Error("you are not the owner of this note to delete", { cause: 403 })
@@ -100,7 +103,9 @@ export const getAllTasks = asyncHandler(async (req, res, next) => {
 //5- get tasks of one user with user data
 export const getTasksOfUser = asyncHandler(async (req, res, next) => {
   let user = req.user;
-  let tasks = await Task.find({ userId: user._id }).populate("userId");
+  let tasks = await Task.find({ userId: user._id, isDeleted: false }).populate(
+    "userId"
+  );
 
   if (tasks.length == 0)
     return res.status(200).json({ message: "user has no tasks" });

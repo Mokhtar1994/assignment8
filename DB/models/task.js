@@ -3,7 +3,7 @@ import mongoose, { Schema } from "mongoose";
 const taskSchema = new Schema(
   {
     title: String,
-    description: String,
+    description: { type: String, required: true },
     status: { type: String, enum: ["toDo", "doing", "done"] },
     userId: { type: Schema.Types.ObjectId, ref: "user" },
     assignTo: { type: Schema.Types.ObjectId, ref: "user" },

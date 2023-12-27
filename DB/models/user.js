@@ -11,6 +11,7 @@ const userSchema = new Schema(
     isDeleted: { type: Boolean, default: false },
     tasks: [{ type: Schema.Types.ObjectId, ref: "task" }],
     isActivated: { type: Boolean, default: false },
+    forgetPasswordCode: String,
   },
   {
     timestamps: true,

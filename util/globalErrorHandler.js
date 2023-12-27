@@ -4,6 +4,6 @@ export function globalErrorHandler(error, req, res, next) {
   return res.status(statusCode).json({
     success: false,
     message: error.message,
-    stack: error.stack,
+    // stack: error.stack,
   });
 }

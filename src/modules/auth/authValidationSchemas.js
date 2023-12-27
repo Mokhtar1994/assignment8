@@ -33,12 +33,12 @@ export const signupSchema = joi
       .messages(validationErrors.phoneErrors),
     // confirm password
     confirmPassword: joi
+      .string()
       .valid(joi.ref("password"))
       .required()
-      .messages(validationErrors.confirmPassword),
+      .messages(validationErrors.confirmPasswordErrors),
   })
-  .required()
-  .unknown();
+  .required();
 
 // signin schema
 export const signinSchema = joi
@@ -50,7 +50,7 @@ export const signinSchema = joi
       .required()
       .messages(validationErrors.emailErrors),
     //password
-    password: joi.string().required().messages(validationErrors.emailErrors),
+    password: joi.string().required().messages(validationErrors.passwordErrors),
   })
   .required();
 
@@ -63,13 +63,16 @@ export const changePasswordSchema = joi
       .required()
       .messages(validationErrors.passwordErrors),
     //new password
-    newPassword: joi.string().required().messages(validationErrors.newPassword),
+    newPassword: joi
+      .string()
+      .required()
+      .messages(validationErrors.newPasswordErrors),
     //confirm new password
     confirmNewPassword: joi
       .string()
       .required()
       .valid(joi.ref("newPassword"))
-      .messages(validationErrors.confirmPassword),
+      .messages(validationErrors.confirmPasswordErrors),
   })
   .required();
 
@@ -89,5 +92,38 @@ export const updateUserSchema = joi
 export const tokenSchema = joi
   .object({
     token: joi.string().required().messages(validationErrors.tokenErrors),
+  })
+  .required();
+
+//reset code schema
+export const resetCodeSchema = joi
+  .object({
+    email: joi
+      .string()
+      .email()
+      .required()
+      .messages(validationErrors.emailErrors),
+    resetCode: joi
+      .string()
+      .length(5)
+      .required()
+      .messages(validationErrors.resetCodeErrors),
+    password: joi.string().required().messages(validationErrors.passwordErrors),
+    confirmPassword: joi
+      .string()
+      .valid(joi.ref("password"))
+      .required()
+      .messages(validationErrors.confirmPasswordErrors),
+  })
+  .required();
+
+// forget password schema
+export const forgetPasswordSchema = joi
+  .object({
+    email: joi
+      .string()
+      .email()
+      .required()
+      .messages(validationErrors.emailErrors),
   })
   .required();
