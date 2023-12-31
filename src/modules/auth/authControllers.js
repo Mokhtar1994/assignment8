@@ -6,6 +6,7 @@ import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { sendEmail } from "./../../../util/sendEmail.js";
 import randomstring from "randomstring";
+import cloudinary from "../../../util/cloudinary.js";
 
 //1-signUp
 export const signUp = asyncHandler(async (req, res, next) => {
@@ -165,6 +166,14 @@ export const updateUser = asyncHandler(async (req, res, next) => {
 export const deleteUser = asyncHandler(async (req, res, next) => {
   let user = req.user;
   let { token } = req.headers;
+
+  // delete all data conserned with user in cloudinary
+  let result = await cloudinary.api.delete_resources_by_prefix(
+    `users/${user._id}`
+  );
+
+  // delete the empty folder of the user
+  let deleteResult = await cloudinary.api.delete_folder(`users/${user._id}`);
 
   let response = await User.deleteOne(user._id);
 

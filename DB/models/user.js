@@ -12,6 +12,8 @@ const userSchema = new Schema(
     tasks: [{ type: Schema.Types.ObjectId, ref: "task" }],
     isActivated: { type: Boolean, default: false },
     forgetPasswordCode: String,
+    profilePicture: { secure_url: String, public_id: String },
+    coverPictures: [{ secure_url: String, public_id: String, _id: false }],
   },
   {
     timestamps: true,

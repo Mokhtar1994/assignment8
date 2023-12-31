@@ -1,6 +1,7 @@
 import { Task } from "./../../../DB/models/task.js";
 import { User } from "./../../../DB/models/user.js";
 import { asyncHandler } from "../../../util/asyncHandler.js";
+import cloudinary from "../../../util/cloudinary.js";
 
 //1-add task
 export const addTask = asyncHandler(async (req, res, next) => {
@@ -77,6 +78,15 @@ export const deleteTask = asyncHandler(async (req, res, next) => {
     return next(
       new Error("you are not the owner of this note to delete", { cause: 403 })
     );
+
+  // delete task attachments from cloudinary
+  let result = await cloudinary.api.delete_resources_by_prefix(
+    `users/${user._id}/tasksAttachments/${taskId}`
+  );
+  // delete task folder from user
+  let deleteResult = await cloudinary.api.delete_folder(
+    `users/${user._id}/tasksAttachments/${taskId}`
+  );
 
   // delete task from collection
   let response = await task.deleteOne();

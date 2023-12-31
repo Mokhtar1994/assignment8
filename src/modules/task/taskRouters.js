@@ -26,7 +26,7 @@ router.patch(
 router.delete(
   "/deleteTask/:taskId",
   authMiddleWare,
-  validation(taskValidation.deleteTaskSchema),
+  validation(taskValidation.taskIdSchema),
   taskControllers.deleteTask
 );
 

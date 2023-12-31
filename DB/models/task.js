@@ -8,7 +8,8 @@ const taskSchema = new Schema(
     userId: { type: Schema.Types.ObjectId, ref: "user" },
     assignTo: { type: Schema.Types.ObjectId, ref: "user" },
     isDeleted: { type: Boolean, default: false },
-    deadline: { type: Date /*validate: /^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/*/ },
+    deadline: { type: Date },
+    attachments: [{ secure_url: String, public_id: String, _id: false }],
   },
   {
     timestamps: true,

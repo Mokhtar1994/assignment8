@@ -53,11 +53,12 @@ export const updateTaskSchema = joi
   .required();
 
 // delete task schema
-export const deleteTaskSchema = joi.object({
+export const taskIdSchema = joi.object({
   taskId: joi
     .custom((value, helper) => {
       if (Types.ObjectId.isValid(value)) return true;
-      return helper.message("invalid id");
+      return helper.message("invalid task id");
     })
-    .required(),
+    .required()
+    .messages(validationErrors.taskIdError),
 });
