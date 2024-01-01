@@ -134,6 +134,11 @@ export const deleteProfilePicture = asyncHandler(async (req, res, next) => {
     profilePicturePublicId
   );
 
+  // delete the empty folder of the user profilePicture
+  let deleteResult = await cloudinary.api.delete_folder(
+    `users/${user._id}/profilePicture`
+  );
+
   // delete profile picture from database
   const databaseResult = await user.updateOne({
     $unset: { profilePicture: 1 },
