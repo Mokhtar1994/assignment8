@@ -1,5 +1,4 @@
 import { asyncHandler } from "./../../../util/asyncHandler.js";
-import { User } from "../../../DB/models/user.js";
 import { Task } from "../../../DB/models/task.js";
 import cloudinary from "../../../util/cloudinary.js";
 import { fileTypeValidation } from "../../../util/fileMimeTypeValidation.js";
