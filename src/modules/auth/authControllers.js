@@ -10,8 +10,7 @@ import cloudinary from "../../../util/cloudinary.js";
 
 //1-signUp
 export const signUp = asyncHandler(async (req, res, next) => {
-  let { username, email, password, confirmPassword, age, gender, phone } =
-    req.body;
+  let { username, email, password, age, gender, phone } = req.body;
 
   // check user
   let user = await User.findOne({ email });
