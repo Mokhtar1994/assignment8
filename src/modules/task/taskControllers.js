@@ -118,7 +118,9 @@ export const getTasksOfUser = asyncHandler(async (req, res, next) => {
   );
 
   if (tasks.length == 0)
-    return res.status(200).json({ message: "user has no tasks" });
+    return res
+      .status(200)
+      .json({ numberOfResults: tasks.length, message: "user has no tasks" });
   return res
     .status(200)
     .json({ success: true, numberOfResults: tasks.length, tasks });
